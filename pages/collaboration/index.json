@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "floating-action": "/components/floating-action/index"
+  },
+  "navigationBarTitleText": "协作"
+}

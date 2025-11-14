@@ -1,0 +1,61 @@
+<view class="collaboration-page">
+  <view class="collab-header">
+    <block wx:for="{{tabs}}" wx:key="value">
+      <view class="collab-tab {{currentTab === item.value ? 'collab-tab--active' : ''}}" data-value="{{item.value}}" bindtap="onSwitchTab">{{item.label}}</view>
+    </block>
+  </view>
+
+  <scroll-view scroll-y class="scrollable-content">
+    <block wx:if="{{currentTab === 'published'}}">
+      <block wx:if="{{publishedProjects.length}}">
+        <block wx:for="{{publishedProjects}}" wx:key="id">
+          <view class="card project-manage-card">
+            <view class="flex-between">
+              <view>
+                <view class="project-name">{{item.title}}</view>
+                <view class="text-secondary">{{item.tags.join('｜')}}</view>
+              </view>
+              <view class="status-tag status-{{item.status}}">{{statusMap[item.status]}}</view>
+            </view>
+            <view class="applicant-section">
+              <view class="section-title">应聘者 · {{item.applicants.length}} 人</view>
+              <block wx:for="{{item.applicants}}" wx:key="id">
+                <view class="applicant-card" bindtap="viewTalent" data-id="{{applicant.id}}">
+                  <view>
+                    <view class="applicant-name">{{applicant.name}}</view>
+                    <view class="text-secondary">{{applicant.school}}</view>
+                  </view>
+                  <view class="applicant-actions">
+                    <view class="secondary-button small" bindtap="onContact" data-name="{{applicant.name}}">立即联系</view>
+                    <view class="primary-button small" bindtap="onSelectApplicant" data-project="{{item.id}}" data-id="{{applicant.id}}">选入项目</view>
+                  </view>
+                </view>
+              </block>
+            </view>
+          </view>
+        </block>
+      </block>
+      <view wx:else class="empty-state">暂时没有发布的项目</view>
+    </block>
+
+    <block wx:else>
+      <block wx:if="{{joinedProjects.length}}">
+        <block wx:for="{{joinedProjects}}" wx:key="id">
+          <view class="card joined-card">
+            <view class="flex-between">
+              <view>
+                <view class="project-name">{{item.title}}</view>
+                <view class="text-secondary">{{item.tags.join('｜')}}</view>
+              </view>
+              <view class="status-tag status-{{item.status}}">{{statusMap[item.status]}}</view>
+            </view>
+            <view class="text-secondary">角色：{{item.role}}</view>
+          </view>
+        </block>
+      </block>
+      <view wx:else class="empty-state">暂未参与任何项目</view>
+    </block>
+  </scroll-view>
+
+  <floating-action bind:navigate="onNavigate"></floating-action>
+</view>

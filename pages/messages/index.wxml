@@ -1,0 +1,41 @@
+<view class="messages-page">
+  <scroll-view scroll-y class="scrollable-content">
+    <view class="card section-card">
+      <view class="section-title">系统通知</view>
+      <block wx:if="{{systemNotices.length}}">
+        <block wx:for="{{systemNotices}}" wx:key="id">
+          <view class="notice-card" bindtap="openNotice" data-id="{{item.id}}">
+            <view class="flex-between">
+              <view class="notice-title">{{item.title}}</view>
+              <view class="text-secondary">{{item.time}}</view>
+            </view>
+            <view class="text-secondary">{{item.preview}}</view>
+          </view>
+        </block>
+      </block>
+      <view wx:else class="empty-state">暂无系统通知</view>
+    </view>
+
+    <view class="card section-card">
+      <view class="section-title">聊天</view>
+      <block wx:if="{{chats.length}}">
+        <block wx:for="{{chats}}" wx:key="id">
+          <view class="chat-card" bindtap="openChat" data-id="{{item.id}}">
+            <view class="chat-info">
+              <image class="chat-avatar" src="{{item.avatar}}" mode="aspectFill"></image>
+              <view>
+                <view class="chat-title">{{item.title}}</view>
+                <view class="chat-tag">{{item.tag}}</view>
+              </view>
+            </view>
+            <view class="chat-meta">
+              <view class="text-secondary">{{item.latest}}</view>
+              <view class="text-secondary">{{item.time}}</view>
+            </view>
+          </view>
+        </block>
+      </block>
+      <view wx:else class="empty-state">暂未开始任何对话</view>
+    </view>
+  </scroll-view>
+</view>
