@@ -1,0 +1,128 @@
+<view class="discover-page">
+  <view class="hero">
+    <view class="search-bar">
+      <text class="icon">🔍</text>
+      <input class="search-input" placeholder="搜索项目 / 岗位 / 人才" confirm-type="search" bindinput="onSearch" />
+    </view>
+    <view class="top-tags">
+      <block wx:for="{{topTabs}}" wx:key="value">
+        <view class="top-tag {{currentTab === item.value ? 'top-tag--active' : ''}}" data-value="{{item.value}}" bindtap="onSwitchTab">{{item.label}}</view>
+      </block>
+    </view>
+    <view class="filter-entry" bindtap="onToggleFilter">
+      <text>筛选条件</text>
+      <text class="filter-entry__desc">{{filterSummary[currentTab]}}</text>
+      <text class="filter-entry__icon">⌄</text>
+    </view>
+  </view>
+
+  <scroll-view scroll-y class="scrollable-content discover-content">
+    <block wx:if="{{currentTab === 'project'}}">
+      <block wx:if="{{projectList.length}}">
+        <block wx:for="{{projectList}}" wx:key="id">
+          <view class="card project-card" bindtap="goProjectDetail" data-id="{{item.id}}">
+            <view class="flex-between">
+              <view class="project-title">{{item.title}}</view>
+              <view wx:if="{{item.certified}}" class="badge">认证企业</view>
+            </view>
+            <view class="tag-wrapper">
+              <view class="tag">{{item.type}}</view>
+              <view class="tag">{{item.mode}}</view>
+              <view wx:if="{{item.city}}" class="tag">{{item.city}}</view>
+              <view class="tag">{{item.payment}}</view>
+            </view>
+            <view class="meta-line">
+              <text>{{item.education}}</text>
+              <text> · {{item.grade}}</text>
+              <text wx:if="{{item.benefits.length}}"> · {{item.benefits.join('、')}}</text>
+            </view>
+            <view class="card-footer">
+              <text class="text-secondary">{{item.duration}}</text>
+              <view class="contact-pill">查看详情</view>
+            </view>
+          </view>
+        </block>
+      </block>
+      <view wx:else class="empty-state">暂无项目，试试调整筛选条件</view>
+    </block>
+
+    <block wx:elif="{{currentTab === 'job'}}">
+      <block wx:if="{{jobList.length}}">
+        <block wx:for="{{jobList}}" wx:key="id">
+          <view class="card job-card" bindtap="goJobDetail" data-id="{{item.id}}">
+            <view class="flex-between">
+              <view>
+                <view class="job-title">{{item.title}}</view>
+                <view class="job-company">{{item.company}}</view>
+              </view>
+              <view class="job-salary">{{item.salary}}</view>
+            </view>
+            <view class="tag-wrapper">
+              <view class="tag">{{item.education}}</view>
+              <view class="tag">{{item.industry}}</view>
+              <view class="tag">{{item.location}}</view>
+            </view>
+            <view class="meta-line">
+              <view wx:if="{{item.certified}}" class="badge">认证企业</view>
+              <text class="text-secondary">{{item.benefits.join(' / ')}}</text>
+            </view>
+          </view>
+        </block>
+      </block>
+      <view wx:else class="empty-state">暂无岗位，试试调整筛选条件</view>
+    </block>
+
+    <block wx:else>
+      <block wx:if="{{talentList.length}}">
+        <block wx:for="{{talentList}}" wx:key="id">
+          <view class="card talent-card" bindtap="goTalentDetail" data-id="{{item.id}}">
+            <view class="talent-header">
+              <image class="talent-avatar" src="{{item.avatar}}" mode="aspectFill"></image>
+              <view>
+                <view class="talent-name">{{item.name}}</view>
+                <view class="talent-tags">{{item.identity}} · {{item.school}}</view>
+              </view>
+              <view wx:if="{{item.verified}}" class="badge">平台认证</view>
+            </view>
+            <view class="tag-wrapper">
+              <view class="tag">{{item.intent}}</view>
+              <view class="tag">{{item.salary}}</view>
+              <view class="tag">{{item.location}}</view>
+            </view>
+            <view class="text-secondary">能力标签：{{item.skills.join('、')}}</view>
+          </view>
+        </block>
+      </block>
+      <view wx:else class="empty-state">暂无人才信息</view>
+    </block>
+  </scroll-view>
+
+  <floating-action bind:navigate="onNavigate"></floating-action>
+
+  <view wx:if="{{showFilter}}" class="filter-panel" catchtouchmove="stopMove">
+    <view class="filter-panel__inner">
+      <view class="filter-header">
+        <view class="filter-title">{{filterTitle[currentTab]}}</view>
+        <text class="filter-close" bindtap="onToggleFilter">关闭</text>
+      </view>
+      <block wx:for="{{filterConfig[currentTab]}}" wx:key="title">
+        <view class="filter-section">
+          <view class="section-title">{{item.title}}</view>
+          <view class="section-subtitle" wx:if="{{item.description}}">{{item.description}}</view>
+          <view class="filter-options">
+            <block wx:for="{{item.options}}" wx:key="value" wx:for-item="option">
+              <view class="filter-chip {{item.multiple ? ((item.selected && item.selected.indexOf(option.value) !== -1) ? 'filter-chip--active' : '') : (item.selected === option.value ? 'filter-chip--active' : '')}}"
+                    data-group="{{item.key}}" data-value="{{option.value}}" data-multiple="{{item.multiple}}" bindtap="onSelectFilter">
+                {{option.label}}
+              </view>
+            </block>
+          </view>
+        </view>
+      </block>
+      <view class="bottom-action-bar">
+        <view class="secondary-button" bindtap="onResetFilter">重置</view>
+        <view class="primary-button" bindtap="onConfirmFilter">完成</view>
+      </view>
+    </view>
+  </view>
+</view>

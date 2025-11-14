@@ -1,0 +1,35 @@
+<view class="forum-page">
+  <view class="forum-header">
+    <view class="search-bar">
+      <text class="icon">🔍</text>
+      <input class="search-input" placeholder="搜索帖子标题 / 内容" bindinput="onSearch" />
+    </view>
+    <view class="filter-tags">
+      <block wx:for="{{filters}}" wx:key="value">
+        <view class="filter-chip {{activeFilters.includes(item.value) ? 'filter-chip--active' : ''}}" data-value="{{item.value}}" bindtap="onToggleFilter">{{item.label}}</view>
+      </block>
+    </view>
+  </view>
+
+  <scroll-view scroll-y class="scrollable-content">
+    <block wx:if="{{postList.length}}">
+      <block wx:for="{{postList}}" wx:key="id">
+        <view class="card post-card" bindtap="viewPost" data-id="{{item.id}}">
+          <view class="post-header">
+            <view class="post-type">{{item.type}}</view>
+            <view class="text-secondary">{{item.publishTime}}</view>
+          </view>
+          <view class="post-title">{{item.title}}</view>
+          <view class="post-meta">
+            <text class="text-secondary">作者：{{item.author}}</text>
+            <view wx:if="{{item.relation}}" class="relation-tag">关联：{{item.relation}}</view>
+          </view>
+          <view class="post-excerpt">{{item.content}}</view>
+        </view>
+      </block>
+    </block>
+    <view wx:else class="empty-state">暂无帖子，快来发布第一条吧</view>
+  </scroll-view>
+
+  <floating-action bind:navigate="onNavigate"></floating-action>
+</view>

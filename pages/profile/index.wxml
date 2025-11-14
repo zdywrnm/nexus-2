@@ -1,0 +1,62 @@
+<view class="profile-page">
+  <view class="profile-hero">
+    <image class="profile-avatar" src="https://dummyimage.com/160x160/1a73e8/ffffff.png&text=Me" mode="aspectFill"></image>
+    <view>
+      <view class="profile-name">星河探索者</view>
+      <view class="profile-subtitle">人才认证｜企业认证</view>
+    </view>
+  </view>
+
+  <view class="card status-card">
+    <view class="section-title">认证进度</view>
+    <view class="status-list">
+      <view class="status-item">
+        <text>学信网</text>
+        <text class="status-label success">已认证</text>
+      </view>
+      <view class="status-item">
+        <text>人脸识别</text>
+        <text class="status-label success">已完成</text>
+      </view>
+      <view class="status-item">
+        <text>线下核验</text>
+        <text class="status-label pending">待提交</text>
+      </view>
+      <view class="status-item">
+        <text>成就证明人</text>
+        <text class="status-label info">1 位</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="card menu-card">
+    <view class="menu-item" bindtap="openTalentInfo">
+      <view>
+        <view class="menu-title">人才信息</view>
+        <view class="text-secondary">完善教育经历、实习经历、求职意向</view>
+      </view>
+      <text class="menu-arrow">›</text>
+    </view>
+    <view class="menu-item" bindtap="openEnterpriseInfo">
+      <view>
+        <view class="menu-title">企业信息</view>
+        <view class="text-secondary">提交企业资质、认证状态查看</view>
+      </view>
+      <text class="menu-arrow">›</text>
+    </view>
+    <view class="menu-item" bindtap="openResume">
+      <view>
+        <view class="menu-title">我的简历预览</view>
+        <view class="text-secondary">自动汇总项目信息生成 PDF</view>
+      </view>
+      <text class="menu-arrow">›</text>
+    </view>
+    <view class="menu-item" bindtap="openSettings">
+      <view>
+        <view class="menu-title">设置</view>
+        <view class="text-secondary">通知、账号安全、退出登录</view>
+      </view>
+      <text class="menu-arrow">›</text>
+    </view>
+  </view>
+</view>

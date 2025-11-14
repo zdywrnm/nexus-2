@@ -1,0 +1,11 @@
+<movable-area class="fab-area">
+  <movable-view class="fab" direction="all" out-of-bounds="false" inertia bindtap="onToggle" bindlongpress="onEnableMove">
+    <view class="fab__icon">＋</view>
+  </movable-view>
+
+  <view wx:if="{{open}}" class="fab-menu">
+    <view class="fab-menu__item" bindtap="onPostProject">发项目</view>
+    <view class="fab-menu__item" bindtap="onPostJob">发岗位</view>
+    <view class="fab-menu__item" bindtap="onPostPost">发帖子</view>
+  </view>
+</movable-area>
